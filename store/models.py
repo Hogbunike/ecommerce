@@ -20,11 +20,16 @@ class Products(models.Model):
     slug = models.SlugField(max_length=50)
     description = models.TextField(blank=True)
     price = models.IntegerField()
+    image = models.ImageField(upload_to='uploads/product_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+
+        
 
     class Meta:
         verbose_name_plural = 'Products'
+        ordering = ['-created_at',]
 
     def __str__(self):
         return self.title
