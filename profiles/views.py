@@ -3,7 +3,21 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from .models import Userprofile
+from django.contrib.auth.decorators import login_required
+from store.forms import ProductForm
+from store.models import Products, Category
+
+
 # Create your views here.
+
+@login_required
+def my_vendor(request):
+    return render(request, 'profiles/myvendor.html', {})
+
+@login_required
+def add_product(request):
+    return render(request, 'profiles/add_product.html', {})
+
 
 def vendor_detail(request, pk):
     user = User.objects.get(pk=pk)
@@ -27,5 +41,6 @@ def signup(request):
 
     return render(request, 'profiles/signup.html', {'form': form})
 
+@login_required
 def myaccount(request):
     return render(request, 'profiles/myaccount.html', {})
