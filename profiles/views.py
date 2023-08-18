@@ -16,7 +16,8 @@ def my_vendor(request):
 
 @login_required
 def add_product(request):
-    return render(request, 'profiles/add_product.html', {})
+    form = ProductForm()
+    return render(request, 'profiles/add_product.html', {'form': form})
 
 
 def vendor_detail(request, pk):
