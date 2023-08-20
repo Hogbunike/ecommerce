@@ -9,6 +9,8 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='profiles/login.html'), name='login'),
     path('myaccount/', views.myaccount, name='myaccount'),
     path('myvendor/', views.my_vendor, name='myvendor'),
+    path('edit_product/<int:pk>/', views.edit_product, name='edit_product'),
+    path('delete_product/<int:pk>/', views.delete_product, name='delete_product'),
     path('add_product', views.add_product, name='add_product'),
     
 ]
