@@ -32,6 +32,10 @@
 
                         <h2 class="text-xl">{{ product.title }}</h2>
                         <p class="text-xs text-gray-600">${{ product.price }}</p>
+
+                        <hr class="my-3">
+
+                        <p><strong>Status:</strong>{{ product.get_status_display }}</p>
                     </a>
                 </div>
             </div>

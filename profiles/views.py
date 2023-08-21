@@ -14,7 +14,8 @@ from store.models import Products
 
 @login_required
 def my_vendor(request):
-    return render(request, 'profiles/myvendor.html', {})
+    products = request.user.products.exclude(status=Products.DELETED)
+    return render(request, 'profiles/myvendor.html', {'products': products})
 
 @login_required
 def add_product(request):
@@ -73,8 +74,9 @@ def delete_product(request, pk):
 
 def vendor_detail(request, pk):
     user = User.objects.get(pk=pk)
+    products = user.products.filter(status=Products.ACTIVE)
 
-    return render(request, 'profiles/vendor_detail.html', {'user': user})
+    return render(request, 'profiles/vendor_detail.html', {'user': user, 'products': products})
 
 def signup(request):
     if request.method == 'POST':
@@ -95,6 +97,4 @@ def signup(request):
 
 @login_required
 def myaccount(request):
-    products = request.user.products.exclude(status=Products.DELETED)
-    
-    return render(request, 'profiles/myaccount.html', {'products': products})
+    return render(request, 'profiles/myaccount.html', {})
