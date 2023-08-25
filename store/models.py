@@ -55,7 +55,7 @@ class Products(models.Model):
         return self.title
     
     def get_thumbnail(self):
-        if self.self.thumbnail:
+        if self.thumbnail:
             return self.thumbnail.url
         else:
             if self.image:
@@ -66,13 +66,14 @@ class Products(models.Model):
             else:
                 return 'https://via.placeholder.com/240x240x.jpg'
     
-    def make_thumbnail(self, image, size=(300, 800)):
+    def make_thumbnail(self, image, size=(300, 300)):
         img = Image.open(image)
         img.convert('RBG')
         img.thumbnail(size)
 
         thumb_io = BytesIO()
         img.save(thumb_io, 'JPEG', quality=85)
+        # name = image.name.replace('uploads/product_images/', '')
         thumbnail = File(thumb_io, name=image.name)
 
         return thumbnail
