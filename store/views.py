@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q 
+from django.contrib.auth.decorators import login_required
 
 from .models import Products, Category
-
+from .forms import OrderForm
 from .cart import Cart
 
 # Create your views here.
@@ -31,6 +32,19 @@ def  cart_view(request):
     cart = Cart(request)
 
     return render(request, 'store/cart_view.html', {'cart': cart})
+
+@login_required
+def checkout(request):
+    cart = Cart(request)
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+
+        if form.is_valid():
+            return redirect('my_account')
+    else:
+        form = OrderForm()
+    return render(request, 'store/checkout.html', {'cart': cart, 'form': form})
 
 
 def remove_from_cart(request, product_id):

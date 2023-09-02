@@ -1,6 +1,11 @@
 from django import forms
 
-from .models import Products
+from .models import Products, Order
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ('first_name', 'last_name', 'address', 'zip_code', 'city',)
 
 class ProductForm(forms.ModelForm):
     class Meta:

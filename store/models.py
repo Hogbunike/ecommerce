@@ -77,3 +77,21 @@ class Products(models.Model):
         thumbnail = File(thumb_io, name=name)
 
         return thumbnail
+
+class Order(models.Model):
+    first_name = models.CharField(max_length=250)
+    last_name = models.CharField(max_length=250)
+    address = models.CharField(max_length=250)
+    zip_code = models.CharField(max_length=250)
+    city = models.CharField(max_length=250)
+    amount_paid = models.IntegerField(default=0)
+    is_paid = models.BooleanField(default=False)
+    marchant_id = models.CharField(max_length=250)
+    created_by = models.ForeignKey(User, related_name='orders', on_delete=models.SET_NULL, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, related_name='items', on_delete=models.CASCADE)
+    price = models.IntegerField()
+    quantity = models.IntegerField(default=1)
