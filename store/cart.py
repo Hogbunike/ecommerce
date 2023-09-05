@@ -48,8 +48,12 @@ class Cart(object):
 
             self.save()
 
+    def clear(self):
+        del self.session[settings.CART_SESSION_ID]
+        self.session.modified = True
+
     def get_total_cost(self):
         for p in self.cart.keys():
             self.cart[str(p)] ['product'] = Products.objects.get(pk=p)
 
-        return int(sum(item['product'].price * item['quantity'] for item in self.cart.values())) / 10*2
+        return int(sum(item['product'].price * item['quantity'] for item in self.cart.values())) 
